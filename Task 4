@@ -1,0 +1,46 @@
+Java
+import javax.swing.*;
+import java.awt.event.*;
+
+public class WordCounter extends JFrame {
+
+    private JTextArea textArea;
+    private JButton countButton;
+    private JLabel wordCountLabel;
+
+    public WordCounter() {
+        
+        textArea = new JTextArea();
+        countButton = new JButton("Count Words");
+        wordCountLabel = new JLabel("Word Count: ");
+
+        
+        setLayout(new BorderLayout());
+        add(textArea, BorderLayout.CENTER);
+        add(countButton, BorderLayout.EAST);
+        add(wordCountLabel, BorderLayout.SOUTH);
+
+       
+        countButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               
+                String text = textArea.getText();
+
+            
+                String[] words = text.split(" ");
+                wordCountLabel.setText("Word Count: " + words.length);
+            }
+        });
+
+        setTitle("Word Counter");
+
+        setSize(400, 300);
+
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new WordCounter();
+    }
+}
