@@ -1,0 +1,200 @@
+XML
+<dependencies>
+
+    
+<dependency>
+
+        
+<groupId>org.springframework</groupId>
+
+        
+<artifactId>spring-webmvc</artifactId>
+
+ 
+
+    
+</dependency>
+
+    
+<dependency>
+
+        
+<groupId>mysql</groupId>
+
+        
+<artifactId>mysql-connector-java</artifactId>
+
+    
+</dependency>
+
+    
+<dependency>
+
+        
+<groupId>org.apache.tomcat.embed</groupId>
+
+        
+<artifactId>tomcat-embed-core</artifactId>
+
+       
+    </dependency>
+</dependencies>
+
+CREATE
+ 
+TABLE users (
+    id INT
+ 
+NOT
+ 
+NULL AUTO_INCREMENT,
+    username VARCHAR(255) NOT
+ 
+NULL,
+    password VARCHAR(255) NOT
+ 
+NULL,
+    role VARCHAR(255) NOT
+ 
+NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE
+ 
+TABLE courses (
+    id INT
+ 
+NOT
+ 
+NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT
+ 
+NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE
+ 
+TABLE attendance (
+    id INT NOT NULL AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    course_id INT NOT NULL,
+    date DATE NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+Java
+public class User {
+    private int id;
+    private String username;
+    private String password;
+    private String role;
+
+   
+}
+
+public class Course {
+    private int id;
+    private String name;
+}
+
+public class Attendance {
+    private int id;
+    private int userId;
+    private int courseId;
+    private Date date;
+    private String status;
+
+}
+
+Java
+public
+ 
+class
+ 
+UserController
+ 
+{
+
+    @Autowired
+
+    
+private UserService userService;
+
+    @GetMapping("/users")
+
+    
+public List<User> getAllUsers()
+ 
+{
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/user/{id}")
+
+    
+public User getUserById(@PathVariable
+ 
+int id)
+ 
+{
+        return userService.getUserById(id);
+    }
+
+    @PostMapping("/user")
+
+    
+public User createUser(@RequestBody User user)
+ 
+{
+        return userService.createUser(user);
+    }
+
+    @PutMapping("/user/{id}")
+
+    
+public User updateUser(@PathVariable
+ 
+int id, @RequestBody User user)
+ 
+{
+        return userService.updateUser(id, user);
+    }
+
+    @DeleteMapping("/user/{id}")
+
+    
+public
+ 
+void
+ 
+deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
+    }
+}
+
+public
+ 
+class
+ 
+CourseController
+ 
+{
+
+    @Autowired
+
+    
+private CourseService courseService;
+
+    @GetMapping("/courses")
+
+    
+public List<Course> getAllCourses()
+ 
+{
+        return courseService.getAllCourses();
+    }
