@@ -1,0 +1,58 @@
+CurrencyConverter.java
+
+import java.io.IOException;
+import java.util.Currency;
+import java.util.Map;
+import java.util.HashMap;
+
+public class CurrencyConverter {
+
+    private static final Map<Currency, Double> exchangeRates = new HashMap<>();
+
+    static {
+        // Initialize exchange rates
+        exchangeRates.put(Currency.getInstance("USD"), 74.35);
+        exchangeRates.put(Currency.getInstance("EUR"), 80.75);
+        exchangeRates.put(Currency.getInstance("GBP"), 95.10);
+    }
+
+    public static double convert(double amount, Currency from, Currency to)
+ {
+      
+    exchangeRate = exchangeRates.get(from)  exchangeRates.get(to);
+
+      
+      exchangeRate;
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        HttpServer server = HttpServer.createDefault();
+
+      
+        server.createContext("/", (request, response) -> {
+            // Get the currencies to convert between
+            String fromCurrency = request.getParameter("from");
+            String toCurrency = request.getParameter("to");
+
+          
+      double amount = Double.parseDouble(request.getParameter("amount"));
+
+           
+      convertedAmount = convert(amount, Currency.getInstance(fromCurrency), Currency.getInstance(toCurrency));
+
+           response.setContentType("text/plain");
+            response.getWriter().write(String.valueOf(convertedAmount));
+            response.close();
+        });
+
+       
+        server.start();
+
+        
+        System.in.read();
+
+       
+        server.stop(0);
+    }
+}
